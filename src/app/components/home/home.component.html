@@ -1,1 +1,15 @@
-<p>home works!</p>
+<h1>On List</h1>
+<button (click)= "removeUnchecked()">Remove Unchecked</button>
+<div *ngFor="let aRecipe of recipesOnList">
+    <p> Id: {{aRecipe.recipeId}} </p>
+    <p> Name: {{aRecipe.recipeName}} </p>
+    <input type="checkbox" [(ngModel)] = "aRecipe.isOnList">
+</div>
+
+<h1>Not on List</h1>
+<button (click)= "addChecked()">Add Checked</button>
+<div *ngFor="let aRecipe of recipesNotOnList">
+    <p> Id: {{aRecipe.recipeId}}</p>
+    <p> Name: {{aRecipe.recipeName}}</p>
+    <input type="checkbox" [(ngModel)] = "aRecipe.isOnList">
+</div>
