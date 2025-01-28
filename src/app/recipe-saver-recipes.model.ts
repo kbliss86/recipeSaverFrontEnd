@@ -1,8 +1,8 @@
-export interface BookClubMember {
-    RecipeId: number;
-    RecipeName: string;
-    RecipeCategory: string;
-    IngredientList: string;
-    IsOnList: boolean;
-    UserID: number;
+export interface Recipe {
+    recipeId: number;
+    recipeName: string;
+    recipeCategory: string;
+    ingredientList: string;
+    isOnList: boolean;
+    userID: number;
     }
