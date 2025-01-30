@@ -1,14 +1,24 @@
-<h1>On List</h1>
+<h1>Shopping List</h1>
 <button (click)= "removeUnchecked()">Remove Unchecked</button>
-<div *ngFor="let aRecipe of recipesOnList">
-    <p> Id: {{aRecipe.recipeId}} </p>
-    <p> Name: {{aRecipe.recipeName}} </p>
-    <input type="checkbox" [(ngModel)] = "aRecipe.isOnList">
+<div *ngFor="let aIngredient of userIngredients">
+    <p> Id: {{aIngredient.ingredientId}} </p>
+    <p> Name: {{aIngredient.ingredientName}} </p>
+    <p> Quantity: {{aIngredient.ingredientQuantity}} </p>
+    <input type="checkbox" [(ngModel)] = "aIngredient.toRemove">
 </div>
 
-<h1>Not on List</h1>
- <button>Add Recipe</button> 
-<!-- <button (click)= "addChecked(selectedRecipe)">Add Recipe</button> -->
-<select [(ngModel)]="selectedRecipe">
-    <option *ngFor="let aRecipe of allRecipes">{{aRecipe.recipeName}} </option>
-</select>
+<h1>Recipe Select</h1>
+<button (click)="addIngredients()">Add Recipe</button>
+<!-- <button (click)="addIngredients(displayedRecipe.ingredientList)">Add Recipe</button> -->
+ <section>
+    <div>
+        <select [(ngModel)]="selectedRecipeId" (change)="onRecipeSelected()">
+            <option *ngFor="let aRecipe of allRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
+        </select>
+    </div>
+    <div *ngIf="displayedRecipe">
+        <h2>{{displayedRecipe.recipeName}}</h2>
+        <p>{{displayedRecipe.recipeCategory}}</p>
+        <p>{{displayedRecipe.ingredientList}}</p>
+    </div>
+</section>
