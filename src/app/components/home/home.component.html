@@ -7,9 +7,8 @@
 </div>
 
 <h1>Not on List</h1>
-<button (click)= "addChecked()">Add Checked</button>
-<div *ngFor="let aRecipe of recipesNotOnList">
-    <p> Id: {{aRecipe.recipeId}}</p>
-    <p> Name: {{aRecipe.recipeName}}</p>
-    <input type="checkbox" [(ngModel)] = "aRecipe.isOnList">
-</div>
+ <button>Add Recipe</button> 
+<!-- <button (click)= "addChecked(selectedRecipe)">Add Recipe</button> -->
+<select [(ngModel)]="selectedRecipe">
+    <option *ngFor="let aRecipe of allRecipes">{{aRecipe.recipeName}} </option>
+</select>

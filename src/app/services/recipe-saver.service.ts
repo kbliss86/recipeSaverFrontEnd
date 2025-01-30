@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../recipe-saver-recipes.model';
 import { Users } from '../recipe-saver-users.model';
+import { Ingredient } from '../recipe-saver-ingredients.model';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient }    from '@angular/common/http';
 import { HttpHeaders }   from '@angular/common/http';
@@ -106,6 +107,34 @@ export class RecipeSaverService {
     // Method to delete Recipe
     async deleteRecipe(aRecipe : Recipe){
       return lastValueFrom(this.theServer.delete(this.theServerUrl+"/recipe/"+aRecipe.recipeId))
+    }
+  // ========================
+  //     Ingredient CRUD
+  // ========================
+
+    //console.log the URL to see if it is correct
+    //Method to get ingredients by userId
+    async getAllIngredientsByUserId(userId : number) : Promise<Ingredient[]> {
+      const result : Ingredient[] =
+      await lastValueFrom(this.theServer.get<Ingredient[]>(this.theServerUrl+"/ingredients/"+userId))
+      console.log((this.theServerUrl+"/ingredients/"+userId))
+      return result
+    }
+
+    //console.log the URL to see if it is correct
+
+
+    //Method to add ingredient
+    async addIngredient(newIngredient : Ingredient){
+      const headers = new HttpHeaders({
+        'Content-Type' : 'application/json'
+      })
+      return lastValueFrom(this.theServer.post(this.theServerUrl+"/ingredient", newIngredient, {headers}))
+    }
+
+    //Method to delete ingredient
+    async deleteIngredient(aIngredient : Ingredient){
+      return lastValueFrom(this.theServer.delete(this.theServerUrl+"/ingredient/"+aIngredient.ingredientId))
     }
 
   // ========================
