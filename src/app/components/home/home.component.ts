@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public userList : Users[] = []
 
 // This is hard coded for now, but will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
-  currentUserId : number = 1;
+  currentUserId : number = 2;
 
 //Lists of Recipes, one for recipes on the shopping list, one for recipes not on the shopping list that the user can select from
   recipesOnList : Recipe[] = [] //"true" - on shopping list - Not Needed
@@ -27,13 +27,12 @@ export class HomeComponent implements OnInit {
 
   userIngredients: Ingredient[] = []//Pull directly from the ingredient table
 
-  selectedReciepeId : number = 0;
-  displayedRecipe? : Recipe;
+  selectedRecipeId : number = 0;
+  displayedRecipe : Recipe | undefined;
 
   allRecipes : Recipe[] = []
 
-  selectedRecipe : Recipe | null = null;
-  
+  // selectedRecipe : Recipe | null = null
   constructor (private recipeService : RecipeSaverService ){}
 
   async ngOnInit(){
@@ -50,8 +49,14 @@ export class HomeComponent implements OnInit {
   // console.log(recipesOnList)
 
 //when user selects recipe from list, populate card with recipe details
-
-//when user selects "add Recipe" button, add recipe to shopping list
+async onRecipeSelected(){
+  console.log(this.selectedRecipeId)
+  const foundRecipe = this.allRecipes.find(recipe => recipe.recipeId == this.selectedRecipeId);
+  if (foundRecipe) {
+    this.displayedRecipe = foundRecipe;
+  }
+  console.log(this.displayedRecipe)
+}
 
 //when user selects "remove Recipe" button, remove recipe from shopping list can call the editRecipe method from the service
 async removeUnchecked(){
@@ -66,20 +71,38 @@ async removeUnchecked(){
   console.log("removeUnchecked")
 }
 
-async addChecked(aRecipe : Recipe){
-  this.recipesNotOnList = this.recipesNotOnList.filter(i => i.isOnList);
+//when user selects "add Recipe" button, add recipe to shopping list
 
-  //split the ingredient property from the recipe and store it in an array
+async addIngredients() {
+if (!this.displayedRecipe) return;
+//variable to store the current user's ID and ingredient list
+const userId = this.currentUserId;
+const ingString = this.displayedRecipe.ingredientList;
+//split ingredients by comma
+const byComma = ingString.split(',');
 
-  //loop through the array and add each one to the ingredient table under the users ID 
-  for (const recipe of this.recipesNotOnList) {
-    recipe.isOnList = true;
-    await this.recipeService.updateRecipe(recipe);
+//for loop to add each ingredient to the ingredient table
+for (let part of byComma) {
+//split the ingredient and measure by "-"
+  const byDash = part.split('-');
+  const ingName = (byDash[0]|| '').trim();
+  const ingQty = (byDash[1]||'').trim();
+
+  //if statement needs to happen inside for loop
+  if (ingName) {
+    const newIngredient: Ingredient = {
+      ingredientId: 0,
+      ingredientName: ingName,
+      ingredientQuantity: ingQty,
+      userId: userId,
+      toRemove: false
+    };
+    await this.recipeService.addIngredient(newIngredient);
   }
-  this.recipesOnList = await this.recipeService.getAllRecipesByUserIdAndList(this.currentUserId, true)
-  this.recipesNotOnList = await this.recipeService.getAllRecipesByUserIdAndList(this.currentUserId, false)
-  console.log("addChecked")
-}
 
+}
+//run the get all ingredients by user ID method to update the ingredient list
+this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId);
+}
 
 }

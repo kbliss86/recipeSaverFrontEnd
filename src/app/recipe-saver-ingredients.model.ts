@@ -3,5 +3,5 @@ export interface Ingredient {
     ingredientName: string,
     ingredientQuantity: string,
     userId: number
-    // toRemove: boolean 
+    toRemove: boolean 
 }
