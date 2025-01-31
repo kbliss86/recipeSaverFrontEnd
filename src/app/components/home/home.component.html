@@ -1,5 +1,5 @@
 <h1>Shopping List</h1>
-<button (click)= "removeUnchecked()">Remove Unchecked</button>
+<button (click)= "removeChecked()">Remove Checked</button>
 <div *ngFor="let aIngredient of userIngredients">
     <p> Id: {{aIngredient.ingredientId}} </p>
     <p> Name: {{aIngredient.ingredientName}} </p>

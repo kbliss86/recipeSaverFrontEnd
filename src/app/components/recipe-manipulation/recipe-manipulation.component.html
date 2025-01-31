@@ -1,1 +1,13 @@
-<p>recipe-manipulation works!</p>
+<section>
+    <div>
+        <h1>Add/Edit a Recipe</h1>
+        <button (click)="showCard='add'">Add Recipe</button>
+        <button (click)="showCard='edit'">Edit Recipe</button>
+    </div>
+    <div *ngIf='showCard=="add"'>
+        <app-recipe-add-new></app-recipe-add-new>
+    </div>
+    <div *ngIf='showCard=="edit"'>
+        <app-recipe-edit></app-recipe-edit>
+    </div>
+</section>
