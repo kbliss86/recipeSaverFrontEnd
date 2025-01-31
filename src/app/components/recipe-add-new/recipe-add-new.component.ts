@@ -17,6 +17,9 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
 export class RecipeAddNewComponent implements OnInit {
 recipeForm!: FormGroup;
 
+//Add in hardcoded user ID for now, will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
+currentUserId : number = 2;
+
 constructor(private fb: FormBuilder) {}
 
 
