@@ -1,1 +1,20 @@
-<p>recipe-add-new works!</p>
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+<div>
+    <label for="recipenamefield">Recipe Name:</label>
+    <input type="text" id="recipenamefield" formControlName="title"/>
+</div>
+<div>
+    <label for="recipecategoryfield">Recipe Category:</label>
+    <input type="text" id="recipecategoryfield" formControlName="category"/>
+</div>
+<div formArrayName="ingredients">
+    <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" style="margin-bottom: 8px;">
+        <input type="text" formControlName="name" placeholder="Ingredient Name"/>
+        <input type="text" formControlName="quantity" placeholder="Quantity"/>
+        <button type="button" (click)="removeIngredient(i)">Remove</button>
+    </div>
+</div>
+<button type="button" (click)="addIngredient()">Add Ingredient</button>
+<button type="submit">Submit</button>
+</form>

@@ -1,1 +1,18 @@
-<p>signup works!</p>
+<h2>Sign-up</h2>
+<form (ngsubmit)="onSubmit()" #registerform="ngForm">
+    <div>
+        <label for="userName">User Name:</label>
+        <input type="text" is="userName"m name="userName" [(ngModel)]="user.userName" required>
+    </div>
+    <div>
+        <label for="userEmail">Email:</label>
+        <input type="email" id="userEmail" name="userEmail" [(ngModel)]="user.userEmail" required> <!--setting type to email to add an extra validation to make sure entered text is in email format-->      
+    </div>
+    <div>
+        <label for="userPassword">Password:</label>
+        <input type="text" id="userPassword" name="userPassword" [(ngModel)]="user.userPassword" required>
+    </div>
+    <div>
+        <button type="submit">Sign-Up</button>
+    </div>
+</form>
