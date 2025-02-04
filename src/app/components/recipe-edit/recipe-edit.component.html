@@ -1,7 +1,5 @@
-
-
 <form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
-    <div>
+    <div class="flex flex-col">
         <!-- <select (change)="onRecipeSelected()" formControlName="selectedRecipe"> -->
         <select formControlName="selectedRecipe" (change)="onRecipeSelected()">
             <option *ngFor="let aRecipe of userRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
@@ -10,17 +8,17 @@
     <!-- hiddine input for recipe id -->
     <input type="hidden" formControlName="recipeId"/>
     <!-- title  -->
-    <div>
+    <div class="flex flex-col">
         <label for="recipenamefield">Recipe Name:</label>
         <input id="title" type="text" id="recipenamefield" formControlName="title"/>
     </div>
-    <div>
+    <div class="flex flex-col">
         <label for="recipecategoryfield">Recipe Category:</label>
         <input type="text" id="recipecategoryfield" formControlName="category"/>
     </div>
     <!-- add limit to new ingredients if time allows -->
     <div formArrayName="ingredientList">
-        <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" style="margin-bottom: 8px;">
+        <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" class="flex items-center space-x-2">
             <!-- <input type="text" formControlName="name" placeholder="Ingredient Name"/>
             <input type="text" formControlName="quantity" placeholder="Quantity"/> -->
             <input type="text" formControlName="name"/>
@@ -29,6 +27,8 @@
         </div>
     </div>
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
-    <button type="submit">Submit</button>
-    <button type="button" (click)="deleteRecipe()">Delete Recipe</button>
+    <div class="flex space-x-2">
+        <button type="submit">Save Changes</button>
+        <button type="button" (click)="deleteRecipe()">Delete Recipe</button>
+    </div> 
     <!-- </form> -->

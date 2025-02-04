@@ -1,13 +1,17 @@
-<section>
-    <div>
-        <h1>Add/Edit a Recipe</h1>
+<section class="p-8 flex flex-col items-center">
+    <div class="border rounded-lg p-4 shadow">
+    <div class="mb-4 flex flex-col items-center">
+        <h1 class="text-2x1 font-bold mb-2">Add/Edit a Recipe</h1>
+        <div class="flex gap-8 w-full max-w-4xl">
         <button (click)="showCard='add'">Add Recipe</button>
         <button (click)="showCard='edit'">Edit Recipe</button>
+        </div>
     </div>
-    <div *ngIf='showCard=="add"'>
+    <div *ngIf='showCard=="add"'  class="bg-gray-100 p-4 rounded shadow-md">
         <app-recipe-add-new></app-recipe-add-new>
     </div>
-    <div *ngIf='showCard=="edit"'>
+    <div *ngIf='showCard=="edit"'  class="bg-gray-100 p-4 rounded shadow-md">
         <app-recipe-edit></app-recipe-edit>
+    </div>
     </div>
 </section>
