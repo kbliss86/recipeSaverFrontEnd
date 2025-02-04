@@ -8,7 +8,8 @@
     <label for="recipecategoryfield">Recipe Category:</label>
     <input type="text" id="recipecategoryfield" formControlName="category"/>
 </div>
-<div formArrayName="ingredients">
+<!-- add limit to new ingredients if time allows -->
+<div formArrayName="ingredientList">
     <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" style="margin-bottom: 8px;">
         <input type="text" formControlName="name" placeholder="Ingredient Name"/>
         <input type="text" formControlName="quantity" placeholder="Quantity"/>

@@ -1,1 +1,34 @@
-<p>recipe-edit works!</p>
+
+
+<form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
+    <div>
+        <!-- <select (change)="onRecipeSelected()" formControlName="selectedRecipe"> -->
+        <select formControlName="selectedRecipe" (change)="onRecipeSelected()">
+            <option *ngFor="let aRecipe of userRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
+        </select>
+    <!-- </div> -->
+    <!-- hiddine input for recipe id -->
+    <input type="hidden" formControlName="recipeId"/>
+    <!-- title  -->
+    <div>
+        <label for="recipenamefield">Recipe Name:</label>
+        <input id="title" type="text" id="recipenamefield" formControlName="title"/>
+    </div>
+    <div>
+        <label for="recipecategoryfield">Recipe Category:</label>
+        <input type="text" id="recipecategoryfield" formControlName="category"/>
+    </div>
+    <!-- add limit to new ingredients if time allows -->
+    <div formArrayName="ingredientList">
+        <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" style="margin-bottom: 8px;">
+            <!-- <input type="text" formControlName="name" placeholder="Ingredient Name"/>
+            <input type="text" formControlName="quantity" placeholder="Quantity"/> -->
+            <input type="text" formControlName="name"/>
+            <input type="text" formControlName="quantity"/>
+            <button type="button" (click)="removeIngredient(i)">Remove</button>
+        </div>
+    </div>
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="deleteRecipe()">Delete Recipe</button>
+    <!-- </form> -->
