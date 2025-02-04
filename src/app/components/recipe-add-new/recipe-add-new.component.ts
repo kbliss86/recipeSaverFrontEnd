@@ -20,13 +20,13 @@ recipeForm!: FormGroup;
 //Add in hardcoded user ID for now, will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
 currentUserId : number = 2;
 
-constructor(private fb: FormBuilder) {}
+constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {}
 
 
 ngOnInit(): void {
     this.recipeForm = this.fb.group({
-      recipeName: ['', Validators.required],
-      recipeCategory: ['', Validators.required],
+      title: ['', Validators.required],
+      category: ['', Validators.required],
       ingredientList: this.fb.array([]),
       // measureList: this.fb.array([])
     });
@@ -41,6 +41,7 @@ get ingredientList() {
 
 addIngredient(): void {
   const ingredientGroup = this.fb.group({
+    
     name: ['', Validators.required],
     quantity: ['', Validators.required],
   });
@@ -53,7 +54,7 @@ removeIngredient(index: number): void {
 
 onSubmit(): void{
   const formValue = this.recipeForm.value;
-  const ingredientsString = formValue.ingredients
+  const ingredientsString = formValue.ingredientList
     .map((ing: any) => `${ing.name} - ${ing.quantity}`)
     .join(', ');
 
@@ -62,19 +63,18 @@ onSubmit(): void{
   console.log(formValue.recipeName);
   console.log(formValue.recipeCategory);
 
+  const newRecipe : Recipe = {
+    recipeId: 0,
+    recipeName: formValue.title, 
+    recipeCategory: formValue.category,
+    ingredientList: ingredientsString,
+    isOnList: false,
+    userID: this.currentUserId
+  }
+
   //add in the add recipe method from the service
+  this.recipeService.addRecipe(newRecipe)
 
 }
-  newRecipe : Recipe = {
-    recipeId: 0,
-    recipeName: '',
-    recipeCategory: '',
-    ingredientList: '',
-    isOnList: false,
-    userID: 0
-  }
-  
-  currentIngredients: Ingredient[] =[]
-
 
 }
