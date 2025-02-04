@@ -1,16 +1,16 @@
 
 <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-<div>
+<div class="flex flex-col">
     <label for="recipenamefield">Recipe Name:</label>
     <input type="text" id="recipenamefield" formControlName="title"/>
 </div>
-<div>
+<div class="flex flex-col">
     <label for="recipecategoryfield">Recipe Category:</label>
     <input type="text" id="recipecategoryfield" formControlName="category"/>
 </div>
 <!-- add limit to new ingredients if time allows -->
 <div formArrayName="ingredientList">
-    <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" style="margin-bottom: 8px;">
+    <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" class="flex items-center space-x-2">
         <input type="text" formControlName="name" placeholder="Ingredient Name"/>
         <input type="text" formControlName="quantity" placeholder="Quantity"/>
         <button type="button" (click)="removeIngredient(i)">Remove</button>
