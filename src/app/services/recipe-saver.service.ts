@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Recipe } from '../recipe-saver-recipes.model';
 import { Users } from '../recipe-saver-users.model';
 import { Meal } from '../recipe-saver-meals.model';
+import { MealsResponse } from '../recipe-saver-mealsResponse';
 import { Category } from '../recipe-saver-categories.model';
 import { Ingredient } from '../recipe-saver-ingredients.model';
 import { lastValueFrom } from 'rxjs';
@@ -153,9 +154,9 @@ export class RecipeSaverService {
   // ========================
 
   //Method to search recipe by name/partial name
-  async searchByMealName(mealName: string) : Promise<Meal[]> {
-    const result : Meal[] = await lastValueFrom(this.theServer.get<Meal[]>(this.recipeServerURl+"/search.php?s=" + mealName))
-    return result
+  async searchByMealName(mealName: string): Promise<Meal[]> {
+    const result : MealsResponse = await lastValueFrom(this.theServer.get<MealsResponse>(this.recipeServerURl+"/search.php?s=" + mealName))
+    return result.meals ?? [];
   }
 
   //Method to get a single random meal

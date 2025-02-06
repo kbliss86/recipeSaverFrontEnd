@@ -1,6 +1,41 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<!-- Search Form  -->
+<form [formGroup]="searchForm" (change)="onSubmit()">
     <div>
-        <input type="text" formControlName="searchBar">
+        <label for="searchBar">Search by Meal Name:</label>
+        <input id="searchBar" type="text" formControlName="searchBar" placeholder="E.g., Chichen, Pasta, etc."/>
         <button type="submit">Search</button>
+    </div>
+</form>
+
+<hr />
+
+<!-- Results Form  -->
+<form [formGroup]="resultsForm">
+    <!-- formArrayName corresponds to "mealList" in your TS code -->
+    <div formArrayName="mealList">
+        <!-- Loop through each FormGroup in the FormArray -->
+        <div *ngFor=" let mealCtrl of mealList.controls; let i = index" [formGroupName]="i">
+            <div class="flex flex-col">
+                <label for="mealName">Meal Name:</label>
+                <!-- formControlName corresponds to "mealName" in your TS code -->
+                <input type="text" id="mealName" formControlName="mealName" />
+            </div>
+            <div class="flex flex-col">
+                <label for="mealCategory">Meal Category:</label>
+                <!-- formControlName corresponds to "mealCategory" in your TS code -->
+                <input type="text" id="mealCategory" formControlName="mealCategory" />
+            </div>
+            <div class="flex flex-col">
+                <label for="mealIngredients">Meal Ingredients:</label>
+                <!-- formControlName corresponds to "mealIngredients" in your TS code -->
+                <input type="text" id="mealIngredients" formControlName="mealIngredients" />
+            </div>
+            <div class="flex flex-col">
+                <label for="mealInstructions">Meal Instructions:</label>
+                <!-- formControlName corresponds to "mealInstructions" in your TS code -->
+                <input type="text" id="mealInstructions" formControlName="mealInstructions" />
+            </div>
+
+        </div>
     </div>
 </form>

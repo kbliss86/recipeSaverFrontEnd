@@ -22,7 +22,7 @@
                     <option *ngFor="let aRecipe of allRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
                 </select>
             </div>
-            <div *ngIf="displayedRecipe">
+            <div *ngIf="displayedRecipe"> <!-- Question two on Tech Endorsement -->
                 <h2>{{displayedRecipe.recipeName}}</h2>
                 <p>{{displayedRecipe.recipeCategory}}</p>
                 <p>{{displayedRecipe.ingredientList}}</p>
