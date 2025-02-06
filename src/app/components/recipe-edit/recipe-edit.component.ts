@@ -13,7 +13,7 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
   templateUrl: './recipe-edit.component.html',
   styleUrl: './recipe-edit.component.css'
 })
-export class RecipeEditComponent {
+export class RecipeEditComponent implements OnInit {
   //current user ID
   currentUserId : number = 2;
 
