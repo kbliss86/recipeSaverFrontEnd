@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../recipe-saver-recipes.model';
 import { Users } from '../recipe-saver-users.model';
+import { Meal } from '../recipe-saver-meals.model';
+import { Category } from '../recipe-saver-categories.model';
 import { Ingredient } from '../recipe-saver-ingredients.model';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient }    from '@angular/common/http';
@@ -21,6 +23,8 @@ export class RecipeSaverService {
 
   private theServerUrl : string = "https://localhost:7218/api/RecipeSaverApi"
 
+  private recipeServerURl : string = "https://www.themealdb.com/api/json/v1/1"
+
   constructor(private theServer:HttpClient) {}
   // ========================
   //        USER CRUD
@@ -33,6 +37,13 @@ export class RecipeSaverService {
       this.listOfUsers
       return result
     }
+
+    //method to get user by email
+    // getUserByEmail () : Promise <User>
+
+    //method to get user by id
+
+    //Need a mehtod to get a user by email and ID
 
     // Method to add User
     async addUser(newUser : Users){
@@ -140,5 +151,48 @@ export class RecipeSaverService {
   // ========================
   //     MealDB EXTERNAL
   // ========================
+
+  //Method to search recipe by name/partial name
+  async searchByMealName(mealName: string) : Promise<Meal[]> {
+    const result : Meal[] = await lastValueFrom(this.theServer.get<Meal[]>(this.recipeServerURl+"/search.php?s=" + mealName))
+    return result
+  }
+
+  //Method to get a single random meal
+  async getARandomMeal() : Promise<Meal> {
+    const result : Meal = await lastValueFrom(this.theServer.get<Meal>(this.recipeServerURl+"/random.php"))
+    return result
+  }
+
+  //Method to get a single meal by id
+  async getMealByID(id : number) : Promise<Meal> {
+    const result : Meal = await lastValueFrom(this.theServer.get<Meal>(this.recipeServerURl + "/lookup.php?1=" + id))
+    return result
+  }
+
+  // Method to get all meal categories (to be used in a dropdown to provide valid categories to filter by in the search component)
+  async getAllCategories() : Promise<Category[]> {
+    const result : Category [] = await lastValueFrom(this.theServer.get<Category[]>(this.recipeServerURl + "/categories.php"))
+    return result
+  }
+
+  // Method to filter meals by their main ingredient (NOTE: ingredients must be formatted as 'ingredient_name')
+  async filterMealsByMainIngredient(ingredientName : string) : Promise<Meal[]> {
+    const result : Meal[] = await lastValueFrom(this.theServer.get<Meal[]>(this.recipeServerURl + "/filter.php?i=" + ingredientName))
+    return result
+  }
+
+  //method to filter meals by their category
+  async filterMealsByCategory (category : string) : Promise<Meal[]> {
+    const result : Meal[] = await lastValueFrom(this.theServer.get<Meal[]>(this.recipeServerURl + "/filter.php?c=" + category))
+    return result
+  }
+
+  // method to filter meals by region of origin 
+  async filterMealsByRegion (place : string) : Promise<Meal[]> {
+    const result : Meal[] = await lastValueFrom(this.theServer.get<Meal[]>(this.recipeServerURl + "/filter.php?a=" + place))
+    return result
+  }
+
 
 }

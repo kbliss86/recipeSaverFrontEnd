@@ -1,31 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Users } from '../../recipe-saver-users.model';
 import { HttpClient } from '@angular/common/http';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 
-user = {
-  userID: 0,
-  userName: '',
-  userEmail: '',
-  userPassword: '',
-};
+  signupForm!: FormGroup;
   
-constructor (private recipieService : RecipeSaverService) {}
+
+  constructor(private fb: FormBuilder, private recipieService : RecipeSaverService) {}
+
+  async ngOnInit() {
+    this.signupForm = this.fb.group({
+      userName:['', [Validators.required]],
+      userEmail: ['', [Validators.required, Validators.email]],
+      userPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+    })
+  }
+
+    
+  
 
 async onSubmit() {
+  if(this.signupForm.invalid){
+    alert('Please correct errors before submitting.');
+    return;
+  }
+  
   try{
-    const response = await this.recipieService.addUser(this.user);
+    // This Hashes the password before sending it to the backend
+    const saltRounds = 10; // Number of salt determins how many of hashing algorithim will be applied to password. 10-12 is typically sufficient for web apps to prevent brute force
+    const hashedPassword = await bcrypt.hash(this.signupForm.value.userPassword, saltRounds);
+
+    // This replaces the plain text password with the hashed password
+    const hashPass = {...this.signupForm.value, userPassword: hashedPassword};
+
+    const newUser : Users = {
+      userID: 0,
+      userName: this.signupForm.value.userName,
+      userEmail: this.signupForm.value.userEmail,
+      userPassword: hashPass.userPassword
+    }
+
+    const response = await this.recipieService.addUser(newUser);
     console.log('User sign-up successfully:', response);
     alert('Sign-up Successfull!');
   }

@@ -1,18 +1,70 @@
-<h2>Sign-up</h2>
-<form (ngsubmit)="onSubmit()" #registerform="ngForm">
-    <div>
-        <label for="userName">User Name:</label>
-        <input type="text" is="userName"m name="userName" [(ngModel)]="user.userName" required>
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="userName">Name</label>
+        <input
+          id="userName"
+          type="text"
+          formControlName="userName"
+          placeholder="Enter your name"
+        />
+        <small
+          *ngIf="signupForm.get('userName')?.invalid && signupForm.get('userName')?.touched"
+        >
+          Name is required.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="userEmail">Email</label>
+        <input
+            id="userEmail"
+            type="email"
+            formControlName="userEmail"
+            placeholder="Enter your email"
+            />
+            <small
+             *ngIf="signupForm.get('userEmail')?.invalid && signupForm.get('userEmail')?.touched"
+             >
+            Please enter a valid email.
+            </small>
+      </div>
+
+      <div class="form-group">
+        <label for="userPassword">Email</label>
+        <input
+            id="userPassword"
+            type="password"
+            formControlName="userPassword"
+            placeholder="Enter your password"
+        />
+        <small
+        *ngIf="
+          signupForm.get('userPassword')?.errors?.['required'] &&
+          signupForm.get('userPassword')?.touched
+        "
+      >
+        Password is required.
+      </small>
+      <small
+        *ngIf="
+          signupForm.get('userPassword')?.errors?.['minlength'] &&
+          signupForm.get('userPassword')?.touched
+        "
+      >
+        Password must be at least 6 characters.
+      </small>
+      <small
+        *ngIf="
+          signupForm.get('userPassword')?.errors?.['maxlength'] &&
+          signupForm.get('userPassword')?.touched
+        "
+      >
+        Password cannot exceed 30 characters.
+      </small>
     </div>
-    <div>
-        <label for="userEmail">Email:</label>
-        <input type="email" id="userEmail" name="userEmail" [(ngModel)]="user.userEmail" required> <!--setting type to email to add an extra validation to make sure entered text is in email format-->      
-    </div>
-    <div>
-        <label for="userPassword">Password:</label>
-        <input type="text" id="userPassword" name="userPassword" [(ngModel)]="user.userPassword" required>
-    </div>
-    <div>
-        <button type="submit">Sign-Up</button>
-    </div>
-</form>
+
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+  </form>
+</div>
