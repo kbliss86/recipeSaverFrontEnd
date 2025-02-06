@@ -2,7 +2,7 @@
     <div class="flex flex-col">
         <!-- <select (change)="onRecipeSelected()" formControlName="selectedRecipe"> -->
         <select formControlName="selectedRecipe" (change)="onRecipeSelected()">
-            <option *ngFor="let aRecipe of userRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
+            <option *ngFor="let aRecipe of userRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option> <!-- Question one/two on Tech Endorsement -->
         </select>
     <!-- </div> -->
     <!-- hiddine input for recipe id -->
