@@ -15,17 +15,18 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
 })
 export class RecipeEditComponent implements OnInit {
 
-  sessionId = sessionStorage.getItem('userId')//get userID from session storage
+  sessionId = sessionStorage.getItem('userId')//get userID from session storage - not needed
   //current user ID
-  currentUserId : number = this.sessionId && !isNaN(Number(this.sessionId))
-  ? parseInt(this.sessionId, 10)
-  : 2;
+  currentUserId : number;
 
   userRecipes: Recipe[] = [];// Pull directly from the recipe table by user ID
 
   editRecipeForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {}
+  constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {
+    const storedUserId = sessionStorage.getItem('userId');
+    this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
+  }
 
   async ngOnInit() {
     this.editRecipeForm = this.fb.group({
@@ -36,11 +37,9 @@ export class RecipeEditComponent implements OnInit {
       ingredientList: this.fb.array([]),
     });
     
-    const storedUserId = sessionStorage.getItem('userId');
-    this.sessionId = storedUserId;
-    this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
-    ? parseInt(this.sessionId, 10)
-    : 2;
+    // const storedUserId = sessionStorage.getItem('userId');
+    // this.sessionId = storedUserId;
+    // this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId)) ? parseInt(this.sessionId, 10) : 0;
 
   //fethcing the user's recipes - for dropdown
     this.userRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId);

@@ -76,7 +76,7 @@ export class RecipeSaverService {
     
     // Method to delete Users
     async deleteUser(aUser : Users){
-      await lastValueFrom(this.theServer.delete(this.theServerUrl + "/users" +aUser.userID))
+      await lastValueFrom(this.theServer.delete(this.theServerUrl + "/users" +aUser.userId))
     }
 
   // ========================

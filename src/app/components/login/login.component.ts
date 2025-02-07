@@ -38,14 +38,17 @@ export class LoginComponent implements OnInit{
         // Fetch user from the database
         const userFromDb : Users = await this.recipeService.getUserByEmail(email);
         console.log('Fetched userFromDb:', JSON.stringify(userFromDb, null, 2));
-
+        
         if (userFromDb) {
-          console.log('UserFromDb' + userFromDb.userEmail)
+          console.log('UserFromDb: ' + userFromDb.userEmail);
+          console.log('UserFromDb: ' + userFromDb.userId);
           const isPasswordMatch = await bcrypt.compare(password, userFromDb.userPassword);
-  
+          console.log('isPasswordMatch:', isPasswordMatch);
           if (isPasswordMatch) {
-            alert('Login Successful!');
-            sessionStorage.setItem('userId', JSON.stringify(userFromDb.userID));
+            alert('Login Successful!');//get rid of alerts later on - they suck
+            sessionStorage.setItem('userId', JSON.stringify(userFromDb.userId));
+            // sessionStorage.setItem("userId", JSON.stringify(userFromDb.userID));
+            console.log('Stored userId in session:', sessionStorage.getItem("userId"));
             this.router.navigate(['/home']);
           } else {
             alert('Invalid email or password.');
@@ -61,19 +64,7 @@ export class LoginComponent implements OnInit{
       alert('Please enter valid login details.');
     }
   }
+  async onSignup(){
+    this.router.navigate(['/signup']);
+  }
 }
-       
-        //compare form values with the values from the database
-        //bcrypt.compare(plaintextPassword, hashedPasswordFromServer)
-        //if true
-        
-        //store user ID in session storage
-        //redirect user to home page
-      
-        //if false
-
-//Add in a portion where the user ID is pulled and stored in session storage so other pages can access it
-//bcrypt.compare(plaintextPassword, hashedPasswordFromServer)
-
-//if false then error
-//if true then store user ID in session storage
