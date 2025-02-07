@@ -40,10 +40,18 @@ export class RecipeSaverService {
     }
 
     //method to get user by email
-    async getUserByEmail (email : string) : Promise <Users>{
-      const result : Users =
-      await lastValueFrom(this.theServer.get<Users>(this.theServerUrl+"/users/"+email))
-      return result
+    async getUserByEmail ( email : string) : Promise <Users>{
+      const encodedEmail = encodeURIComponent(email); // Encode the email for URL safety
+      const result: Users = await lastValueFrom(
+        this.theServer.get<Users>(`${this.theServerUrl}/user?email=${encodedEmail}`)
+      );
+      return result;
+     
+     
+      // const result : Users =
+      // await lastValueFrom(this.theServer.get<Users>(this.theServerUrl+"/user?email=" + email))
+      
+      // return result
     }
 
     //Need a mehtod to get a user by email and ID
