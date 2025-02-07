@@ -1,21 +1,23 @@
 
-<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-<div class="flex flex-col">
-    <label for="recipenamefield">Recipe Name:</label>
-    <input type="text" id="recipenamefield" formControlName="title"/>
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="space-y-4">
+<div class="flex flex-col space-y-1">
+    <label for="recipenamefield" class="text-lg font-semibold">Recipe Name:</label>
+    <input type="text" id="recipenamefield" formControlName="title" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
 </div>
 <div class="flex flex-col">
-    <label for="recipecategoryfield">Recipe Category:</label>
-    <input type="text" id="recipecategoryfield" formControlName="category"/>
+    <label for="recipecategoryfield" class="text-lg font-semibold">Recipe Category:</label>
+    <input type="text" id="recipecategoryfield" formControlName="category" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
 </div>
 <!-- add limit to new ingredients if time allows -->
-<div formArrayName="ingredientList">
+<div formArrayName="ingredientList" class="space-y-2">
     <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" class="flex items-center space-x-2">
-        <input type="text" formControlName="name" placeholder="Ingredient Name"/>
-        <input type="text" formControlName="quantity" placeholder="Quantity"/>
-        <button type="button" (click)="removeIngredient(i)">Remove</button>
+        <input type="text" formControlName="name" placeholder="Ingredient Name" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+        <input type="text" formControlName="quantity" placeholder="Quantity" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+        <button type="button" (click)="removeIngredient(i)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors">Remove</button>
     </div>
 </div>
-<button type="button" (click)="addIngredient()">Add Ingredient</button>
-<button type="submit">Submit</button>
+<div class="flex space-x-4">
+    <button type="button" (click)="addIngredient()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add Ingredient</button>
+    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Submit</button>
+</div>
 </form>

@@ -1,34 +1,37 @@
-<form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()">
-    <div class="flex flex-col">
+<form [formGroup]="editRecipeForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="flex flex-col space-y-1">
         <!-- <select (change)="onRecipeSelected()" formControlName="selectedRecipe"> -->
-        <select formControlName="selectedRecipe" (change)="onRecipeSelected()">
+        <label class="font-semibold">Select Recipe:</label>
+        <select formControlName="selectedRecipe" (change)="onRecipeSelected()" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
             <option *ngFor="let aRecipe of userRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option> <!-- Question one/two on Tech Endorsement -->
         </select>
-    <!-- </div> -->
+    </div>
     <!-- hiddine input for recipe id -->
     <input type="hidden" formControlName="recipeId"/>
     <!-- title  -->
-    <div class="flex flex-col">
-        <label for="recipenamefield">Recipe Name:</label>
-        <input id="title" type="text" id="recipenamefield" formControlName="title"/>
+    <div class="flex flex-col space-y-1">
+        <label for="recipenamefield" class="font-semibold">Recipe Name:</label>
+        <input id="title" type="text" id="recipenamefield" formControlName="title" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
     </div>
-    <div class="flex flex-col">
-        <label for="recipecategoryfield">Recipe Category:</label>
-        <input type="text" id="recipecategoryfield" formControlName="category"/>
+    <!-- Recipe Category -->
+    <div class="flex flex-col space-y-1">
+        <label for="recipecategoryfield" class="font-semibold">Recipe Category:</label>
+        <input type="text" id="recipecategoryfield" formControlName="category" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
     </div>
+    <!-- Ingredient List -->
     <!-- add limit to new ingredients if time allows -->
-    <div formArrayName="ingredientList">
+    <div formArrayName="ingredientList" class="space-y-2">
         <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" class="flex items-center space-x-2">
-            <!-- <input type="text" formControlName="name" placeholder="Ingredient Name"/>
-            <input type="text" formControlName="quantity" placeholder="Quantity"/> -->
-            <input type="text" formControlName="name"/>
-            <input type="text" formControlName="quantity"/>
-            <button type="button" (click)="removeIngredient(i)">Remove</button>
+            <input type="text" formControlName="name"  class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+            <input type="text" formControlName="quantity" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+            <button type="button" (click)="removeIngredient(i)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors">Remove</button>
         </div>
     </div>
-    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+    <!-- Add Ingredient Button -->
+    <button type="button" (click)="addIngredient()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add Ingredient</button>
+    <!-- Save & Delete Buttons -->
     <div class="flex space-x-2">
-        <button type="submit">Save Changes</button>
-        <button type="button" (click)="deleteRecipe()">Delete Recipe</button>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Save Changes</button>
+        <button type="button" (click)="deleteRecipe()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">Delete Recipe</button>
     </div> 
-    <!-- </form> -->
+</form>

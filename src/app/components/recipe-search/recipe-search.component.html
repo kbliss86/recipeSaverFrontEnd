@@ -1,44 +1,45 @@
 <!-- Search Form  -->
-<form [formGroup]="searchForm" (change)="onSubmit()">
-    <div>
-        <label for="searchBar">Search by Meal Name:</label>
-        <input id="searchBar" type="text" formControlName="searchBar" placeholder="E.g., Chichen, Pasta, etc."/>
-        <button type="submit">Search</button>
+<form [formGroup]="searchForm" (change)="onSubmit()" class="mb-6">
+    <div class="flex items-center space-x-2">
+        <label for="searchBar" class="font-semibold">Search by Meal Name:</label>
+        <input id="searchBar" type="text" formControlName="searchBar" placeholder="E.g., Chichen, Pasta, etc."class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Search</button>
     </div>
 </form>
 
-<hr />
+<hr class="my-6" />
 
 <!-- Results Form  -->
-<form [formGroup]="resultsForm">
+<form [formGroup]="resultsForm" class="space-y-6">
     <!-- formArrayName corresponds to "mealList" in your TS code -->
-    <div formArrayName="mealList">
+    <div formArrayName="mealList" class="space-y-4">
         <!-- Loop through each FormGroup in the FormArray -->
-        <div *ngFor=" let mealCtrl of mealList.controls; let i = index" [formGroupName]="i">
-            <div class="flex flex-col">
-                <label for="mealName">Meal Name:</label>
-                <!-- formControlName corresponds to "mealName" in your TS code -->
-                <input type="text" id="mealName" formControlName="mealName" />
+        <div *ngFor=" let mealCtrl of mealList.controls; let i = index" [formGroupName]="i" class="border border-gray-300 rounded p-4 shadow-sm space-y-4">
+            <div class="flex flex-col space-y-1">
+                <label for="mealName" class="font-semibold">Meal Name:</label>
+                <!-- formControlName corresponds to "mealName" in TS code -->
+                <textarea id="mealName" formControlName="mealName" rows="1" readonly class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
             </div>
-            <div class="flex flex-col">
-                <label for="mealCategory">Meal Category:</label>
-                <!-- formControlName corresponds to "mealCategory" in your TS code -->
-                <input type="text" id="mealCategory" formControlName="mealCategory" />
+            <div class="flex flex-col space-y-1">
+                <label for="mealCategory" class="font-semibold">Meal Category:</label>
+                <!-- formControlName corresponds to "mealCategory" in TS code -->
+                <textarea id="mealCategory" formControlName="mealCategory" rows="1" readonly class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
             </div>
-            <div class="flex flex-col">
-                <label for="mealIngredients">Meal Ingredients:</label>
-                <!-- formControlName corresponds to "mealIngredients" in your TS code -->
-                <input type="text" id="mealIngredients" formControlName="mealIngredients" />
+            <div class="flex flex-col space-y-1">
+                <label for="mealIngredients" class="font-semibold">Meal Ingredients:</label>
+                <!-- formControlName corresponds to "mealIngredients" in TS code -->
+                <!-- need to make the text box expand and grow into new lines as the text gets longer  -->
+                <textarea id="mealIngredients" formControlName="mealIngredients" rows="2" readonly class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
             </div>
-            <div class="flex flex-col">
-                <label for="mealInstructions">Meal Instructions:</label>
-                <!-- formControlName corresponds to "mealInstructions" in your TS code -->
-                <input type="text" id="mealInstructions" formControlName="mealInstructions" />
+            <div class="flex flex-col space-y-1">
+                <label for="mealInstructions" class="font-semibold">Meal Instructions:</label>
+                <!-- formControlName corresponds to "mealInstructions" in TS code -->
+                <!-- need to make the text box expand and grow into new lines as the text gets longer  -->
+                <textarea id="mealInstructions" formControlName="mealInstructions" rows="6" readonly class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
             </div>
-            <div class="flex flex-col">
-                <button type="button" (click)="addRecipe(i)">Save to Recipes</button>
+            <div class="flex flex-col space-y-1">
+                <button type="button" (click)="addRecipe(i)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Save to Recipes</button>
             </div>
-
         </div>
     </div>
 </form>
