@@ -1,31 +1,39 @@
-<div class ="min-h-screen flex flex-col items-center p-8 text-grey-800">
+<div class ="min-h-screen flex flex-col items-center p-8 text-gray-800">
     <div class="flex gap-8 w-full max-w-4xl">
     <!-- shopping list section  -->
-        <section class="w-1/2 border rounded-lg p-4 shadow">
-            <h1>Shopping List</h1>
-            <button (click)= "removeChecked()">Remove Checked</button>
+        <section class="w-1/2 border rounded-lg p-4 shadow space-y-4">
+            <h1 class="text-xl font-bold">Shopping List</h1>
+            <button (click)= "removeChecked()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Remove Checked</button>
             <div *ngFor="let aIngredient of userIngredients" class="flex items-center space-x-2 border-b pb-2">
-                <p> Id: {{aIngredient.ingredientId}} </p>
-                <p> Name: {{aIngredient.ingredientName}} </p>
-                <p> Quantity: {{aIngredient.ingredientQuantity}} </p>
+                <p class="text-sm"> Id: {{aIngredient.ingredientId}} </p>
+                <p class="text-sm"> Name: {{aIngredient.ingredientName}} </p>
+                <p class="text-sm"> Quantity: {{aIngredient.ingredientQuantity}} </p>
                 <input type="checkbox" [(ngModel)] = "aIngredient.toRemove">
             </div>
         </section>
         <!-- recipe select section -->
 
         <!-- <button (click)="addIngredients(displayedRecipe.ingredientList)">Add Recipe</button> -->
-        <section class="w-1/2 border rounded-lg p-4 shadow">
-            <h1>Recipe Select</h1>
-            <button (click)="addIngredients()">Add Recipe</button>
+        <section class="w-1/2 border rounded-lg p-4 shadow space-y-4">
+            <h1 class="text-xl font-bold">Recipe Select</h1>
+            <button (click)="addIngredients()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Add Recipe</button>
             <div>
-                <select [(ngModel)]="selectedRecipeId" (change)="onRecipeSelected()">
-                    <option *ngFor="let aRecipe of allRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
-                </select>
-            </div>
-            <div *ngIf="displayedRecipe"> <!-- Question two on Tech Endorsement -->
-                <h2>{{displayedRecipe.recipeName}}</h2>
-                <p>{{displayedRecipe.recipeCategory}}</p>
-                <p>{{displayedRecipe.ingredientList}}</p>
+                <div>
+                    <select [(ngModel)]="selectedRecipeId" (change)="onRecipeSelected()" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                        <option *ngFor="let aRecipe of allRecipes" [value]="aRecipe.recipeId">{{aRecipe.recipeName}} </option>
+                    </select>
+                    <div class="h-4"></div>
+                </div>
+                <div *ngIf="displayedRecipe" class="bg-gray-100 p-4 rounded shadow-md"> <!-- Question two on Tech Endorsement -->
+                    <h2 class="text-xl font-bold">{{displayedRecipe.recipeName}}</h2>
+                    <div class="h-4"></div>
+                    <label class="text-lg font-semibold">Category: {{displayedRecipe.recipeCategory}}</label>
+                    <!-- <p>{{displayedRecipe.recipeCategory}}</p> -->
+                    <!-- spacer to seperate the recipe name and the ingredients -->
+                    <div class="h-4"></div>
+                    <label class="text-lg font-semibold">Ingredients:</label>
+                    <p>{{displayedRecipe.ingredientList}}</p>
+                </div>
             </div>
         </section>
     </div>
