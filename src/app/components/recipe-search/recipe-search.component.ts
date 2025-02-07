@@ -6,6 +6,7 @@ import { MealsResponse } from '../../recipe-saver-mealsResponse';
 import { Recipe } from '../../recipe-saver-recipes.model';
 import { Users } from '../../recipe-saver-users.model';
 import { Meal } from '../../recipe-saver-meals.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-search',
@@ -16,8 +17,8 @@ import { Meal } from '../../recipe-saver-meals.model';
 })
 export class RecipeSearchComponent implements OnInit{
 
-  sessionId = sessionStorage.getItem('userId') //userid from session storage
-  currentUserId : number = 2; // current userid parsed from session storage
+  sessionId = sessionStorage.getItem('userId') //userid from session storage - Not Needed
+  currentUserId : number; // current userid parsed from session storage - Not Needed
   searchForm! : FormGroup;
   resultsForm! : FormGroup; //use to display the results of the search
   searchItem: string = ''; //use with the search bar to store the users input 
@@ -26,9 +27,19 @@ export class RecipeSearchComponent implements OnInit{
   // mealsFound : Meal[] = [];//use with the get meals by category function
   mealsFound : any[] = []; //use with the get meals by category function
 
-  constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {}
+  constructor(private fb: FormBuilder, private recipeService : RecipeSaverService, private router: Router ) {
+    const storedUserId = sessionStorage.getItem('userId')
+    this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
+  }
 
   async ngOnInit() {
+    //check if user is logged in on init
+    if (!this.currentUserId) {
+      alert('Please login to view your recipes');
+      this.router.navigate(['/login']);
+      return;
+      }
+
     this.searchForm = this.fb.group({
       searchBar : [''],
       // selectedCategory: ['', Validators.required],

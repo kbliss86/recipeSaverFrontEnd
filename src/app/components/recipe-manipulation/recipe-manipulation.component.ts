@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecipeAddNewComponent } from '../recipe-add-new/recipe-add-new.component';
 import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-manipulation',
@@ -11,6 +12,13 @@ import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
   styleUrl: './recipe-manipulation.component.css'
 })
 export class RecipeManipulationComponent {
+
+  currentUserId : number;
+
+  constructor(private router: Router) {
+    const storedUserId = sessionStorage.getItem('userId');
+    this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
+  }
 //variable for the logic for Add/Edit Recipe components to show
   showCard: string = '';
 //method for button click "Add New Recipe" - Not Needed

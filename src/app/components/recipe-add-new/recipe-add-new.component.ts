@@ -18,9 +18,12 @@ export class RecipeAddNewComponent implements OnInit {
 recipeForm!: FormGroup;
 
 //Add in hardcoded user ID for now, will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
-currentUserId : number = 2;
+currentUserId : number;
 
-constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {}
+constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {
+  const storedUserId = sessionStorage.getItem('userId');
+  this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
+}
 
 
 ngOnInit(): void {

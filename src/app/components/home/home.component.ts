@@ -5,6 +5,7 @@ import { Users } from '../../recipe-saver-users.model';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,35 +18,36 @@ export class HomeComponent implements OnInit {
 
   public userList : Users[] = []
 
-  sessionId = sessionStorage.getItem('userId')//get userID from session storage
-  //current user ID
-  currentUserId : number = this.sessionId && !isNaN(Number(this.sessionId))
-  ? parseInt(this.sessionId, 10)
-  : 2;
-
 //variables for Lists of All Recipes, All ingredients for a user and the selected recipe
-
   userIngredients: Ingredient[] = []//Pull directly from the ingredient table
-
   selectedRecipeId : number = 0;
   displayedRecipe : Recipe | undefined;
-
   allRecipes : Recipe[] = []
+  currentUserId : number;
 
   // selectedRecipe : Recipe | null = null
-  constructor (private recipeService : RecipeSaverService ){}
+  constructor (private recipeService : RecipeSaverService, private router: Router ){
+    const storedUserId = sessionStorage.getItem('userId')
+    this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
+  }
 
   async ngOnInit(){
+    //check if user is logged in on init
+    if (!this.currentUserId) {
+      alert('Please login to view your recipes');//get rid of alerts later on - they suck
+      this.router.navigate(['/login']);
+      return;
+    }
     this.userList = await this.recipeService.getAllUsers()//probably not needed
     this.allRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId)
     this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId)
     console.log(this.userIngredients)//Console.log - remove after dev
 
-    const storedUserId = sessionStorage.getItem('userId');
-    this.sessionId = storedUserId;
-    this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
-    ? parseInt(this.sessionId, 10)
-    : 2;
+    // const storedUserId = sessionStorage.getItem('userId');
+    // this.sessionId = storedUserId;
+    // this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
+    // ? parseInt(this.sessionId, 10)
+    // : 2;
 
   }
 

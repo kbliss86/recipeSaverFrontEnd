@@ -5,6 +5,7 @@ import { Users } from '../../recipe-saver-users.model';
 import { HttpClient } from '@angular/common/http';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
 import * as bcrypt from 'bcryptjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   
 
-  constructor(private fb: FormBuilder, private recipieService : RecipeSaverService) {}
+  constructor(private fb: FormBuilder, private recipieService : RecipeSaverService, private router: Router ) {}
 
   async ngOnInit() {
     this.signupForm = this.fb.group({
@@ -46,7 +47,7 @@ async onSubmit() {
     const hashPass = {...this.signupForm.value, userPassword: hashedPassword};
 
     const newUser : Users = {
-      userID: 0,
+      userId: 0,
       userName: this.signupForm.value.userName,
       userEmail: this.signupForm.value.userEmail,
       userPassword: hashPass.userPassword
@@ -54,11 +55,12 @@ async onSubmit() {
 
     const response = await this.recipieService.addUser(newUser);
     console.log('User sign-up successfully:', response);
-    alert('Sign-up Successfull!');
+    alert('Sign-up Successfull!');//get rid of alerts later on - they suck
+    this.router.navigate(['/login']);
   }
   catch (error) {
     console.error('Error during Sign-up', error);
-    alert('Sign-up Failed');
+    alert('Sign-up Failed');//get rid of alerts later on - they suck
   }
   
 } 
