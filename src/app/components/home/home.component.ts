@@ -17,8 +17,11 @@ export class HomeComponent implements OnInit {
 
   public userList : Users[] = []
 
-// This is hard coded for now, but will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
-  currentUserId : number = 2;
+  sessionId = sessionStorage.getItem('userId')//get userID from session storage
+  //current user ID
+  currentUserId : number = this.sessionId && !isNaN(Number(this.sessionId))
+  ? parseInt(this.sessionId, 10)
+  : 2;
 
 //variables for Lists of All Recipes, All ingredients for a user and the selected recipe
 
@@ -37,6 +40,13 @@ export class HomeComponent implements OnInit {
     this.allRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId)
     this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId)
     console.log(this.userIngredients)//Console.log - remove after dev
+
+    const storedUserId = sessionStorage.getItem('userId');
+    this.sessionId = storedUserId;
+    this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
+    ? parseInt(this.sessionId, 10)
+    : 2;
+
   }
 
 //when user selects recipe from list, populate card with recipe details

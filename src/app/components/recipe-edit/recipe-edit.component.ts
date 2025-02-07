@@ -14,8 +14,12 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
   styleUrl: './recipe-edit.component.css'
 })
 export class RecipeEditComponent implements OnInit {
+
+  sessionId = sessionStorage.getItem('userId')//get userID from session storage
   //current user ID
-  currentUserId : number = 2;
+  currentUserId : number = this.sessionId && !isNaN(Number(this.sessionId))
+  ? parseInt(this.sessionId, 10)
+  : 2;
 
   userRecipes: Recipe[] = [];// Pull directly from the recipe table by user ID
 
@@ -32,9 +36,17 @@ export class RecipeEditComponent implements OnInit {
       ingredientList: this.fb.array([]),
     });
     
+    const storedUserId = sessionStorage.getItem('userId');
+    this.sessionId = storedUserId;
+    this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
+    ? parseInt(this.sessionId, 10)
+    : 2;
+
   //fethcing the user's recipes - for dropdown
     this.userRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId);
 
+
+    
   }
 
   //helper getter for easier access in the tamplate - this is so we dont have to retype this.recipeForm.get('ingredientList') as FormArray; in the template

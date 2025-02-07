@@ -16,13 +16,15 @@ import { Meal } from '../../recipe-saver-meals.model';
 })
 export class RecipeSearchComponent implements OnInit{
 
+  sessionId = sessionStorage.getItem('userId') //userid from session storage
+  currentUserId : number = 2; // current userid parsed from session storage
   searchForm! : FormGroup;
   resultsForm! : FormGroup; //use to display the results of the search
-  searchItem: string = '';//use with the search bar to store the users input 
-  categories : any[] = [];// use with the "get Cataegories" function
-  selectedCategory : string = '';//use with the form control to store the users selection
+  searchItem: string = ''; //use with the search bar to store the users input 
+  categories : any[] = []; // use with the "get Cataegories" function
+  selectedCategory : string = ''; //use with the form control to store the users selection
   // mealsFound : Meal[] = [];//use with the get meals by category function
-  mealsFound : any[] = [];//use with the get meals by category function
+  mealsFound : any[] = []; //use with the get meals by category function
 
   constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {}
 
@@ -34,6 +36,13 @@ export class RecipeSearchComponent implements OnInit{
     this.resultsForm = this.fb.group({
       mealList : this.fb.array([])
     }) 
+
+    const storedUserId = sessionStorage.getItem('userId');
+    this.sessionId = storedUserId;
+    this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
+    ? parseInt(this.sessionId, 10)
+    : 2;
+
   }
   //helper function to get the mealList form array
   get mealList(): FormArray {
@@ -85,5 +94,19 @@ export class RecipeSearchComponent implements OnInit{
       console.log(this.mealsFound);
       console.log(this.resultsForm);
     } 
+  }
+  // method to save recipe when button is clicked
+  addRecipe(i : number){
+    const mealFormGroup = this.mealList.at(i)
+    const newRecipe : Recipe = {
+      recipeId: 0,
+      recipeName: mealFormGroup.get('mealName')?.value,
+      recipeCategory: mealFormGroup.get('mealCategory')?.value,
+      ingredientList: mealFormGroup.get('mealIngredients')?.value,
+      isOnList: false,
+      userID: this.currentUserId
+    }
+    console.log(newRecipe)
+    this.recipeService.addRecipe(newRecipe)
   }
 }
