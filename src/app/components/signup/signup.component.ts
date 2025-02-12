@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Users } from '../../recipe-saver-users.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';//Get Rid of This
 import { RecipeSaverService } from '../../services/recipe-saver.service';
 import * as bcrypt from 'bcryptjs';
 import { Router } from '@angular/router';
@@ -54,13 +54,13 @@ async onSubmit() {
     }
 
     const response = await this.recipieService.addUser(newUser);
-    console.log('User sign-up successfully:', response);
-    alert('Sign-up Successfull!');//get rid of alerts later on - they suck
+    console.log('User sign-up successfully:', response);//Get Rid of This
+    alert('Sign-up Successfull!');//Get Rid of This
     this.router.navigate(['/login']);
   }
   catch (error) {
-    console.error('Error during Sign-up', error);
-    alert('Sign-up Failed');//get rid of alerts later on - they suck
+    console.error('Error during Sign-up', error);//Get Rid of This
+    alert('Sign-up Failed');
   }
   
 } 

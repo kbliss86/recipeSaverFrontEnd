@@ -1,8 +1,9 @@
+<!-- Clean this up and add in comments explaining what we are doing and the layout  -->
 <!-- Search Form  -->
 <form [formGroup]="searchForm" (change)="onSubmit()" class="mb-6">
     <div class="flex items-center space-x-2">
         <label for="searchBar" class="font-semibold">Search by Meal Name:</label>
-        <input id="searchBar" type="text" formControlName="searchBar" placeholder="E.g., Chichen, Pasta, etc."class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+        <input id="searchBar" type="text" formControlName="searchBar" placeholder="E.g., Chicken, Pasta, etc."class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Search</button>
     </div>
 </form>

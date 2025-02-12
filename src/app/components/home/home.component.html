@@ -12,6 +12,7 @@
         </section>
         <!-- recipe select section -->
 
+        <!-- Get Rid of This -->
         <!-- <button (click)="addIngredients(displayedRecipe.ingredientList)">Add Recipe</button> -->
         <section class="w-1/2 border rounded-lg p-4 shadow space-y-4">
             <h1 class="text-xl font-bold">Recipe Select</h1>
@@ -23,10 +24,11 @@
                     </select>
                     <div class="h-4"></div>
                 </div>
-                <div *ngIf="displayedRecipe" class="bg-gray-100 p-4 rounded shadow-md"> <!-- Question two on Tech Endorsement -->
+                <div *ngIf="displayedRecipe" class="bg-gray-100 p-4 rounded shadow-md">
                     <h2 class="text-xl font-bold">{{displayedRecipe.recipeName}}</h2>
                     <div class="h-4"></div>
                     <label class="text-lg font-semibold">Category: {{displayedRecipe.recipeCategory}}</label>
+                    <!-- //Get Rid of This -->
                     <!-- <p>{{displayedRecipe.recipeCategory}}</p> -->
                     <!-- spacer to seperate the recipe name and the ingredients -->
                     <div class="h-4"></div>

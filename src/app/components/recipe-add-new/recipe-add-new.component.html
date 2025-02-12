@@ -1,4 +1,4 @@
-
+<!-- Clean this up and add in comments to explain layout and what we are doing  -->
 <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="space-y-4">
 <div class="flex flex-col space-y-1">
     <label for="recipenamefield" class="text-lg font-semibold">Recipe Name:</label>
@@ -8,6 +8,7 @@
     <label for="recipecategoryfield" class="text-lg font-semibold">Recipe Category:</label>
     <input type="text" id="recipecategoryfield" formControlName="category" class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"/>
 </div>
+<!-- //Get Rid of This  -->
 <!-- add limit to new ingredients if time allows -->
 <div formArrayName="ingredientList" class="space-y-2">
     <div *ngFor="let ingredient of ingredientList.controls; let i = index" [formGroupName]="i" class="flex items-center space-x-2">

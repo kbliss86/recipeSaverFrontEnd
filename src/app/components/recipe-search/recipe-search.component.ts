@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, FormArray, Validators, ReactiveFormsModule, Form } from '@angular/forms';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
-import { MealsResponse } from '../../recipe-saver-mealsResponse';
+import { MealsResponse } from '../../recipe-saver-mealsResponse';//Get Rid of This
 import { Recipe } from '../../recipe-saver-recipes.model';
-import { Users } from '../../recipe-saver-users.model';
-import { Meal } from '../../recipe-saver-meals.model';
+import { Users } from '../../recipe-saver-users.model';//Get Rid of This
+import { Meal } from '../../recipe-saver-meals.model';//Get Rid of This
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,6 +24,7 @@ export class RecipeSearchComponent implements OnInit{
   searchItem: string = ''; //use with the search bar to store the users input 
   categories : any[] = []; // use with the "get Cataegories" function
   selectedCategory : string = ''; //use with the form control to store the users selection
+  //Get Rid of This
   // mealsFound : Meal[] = [];//use with the get meals by category function
   mealsFound : any[] = []; //use with the get meals by category function
 
@@ -42,12 +43,13 @@ export class RecipeSearchComponent implements OnInit{
 
     this.searchForm = this.fb.group({
       searchBar : [''],
+      //Get Rid of This
       // selectedCategory: ['', Validators.required],
     })
     this.resultsForm = this.fb.group({
       mealList : this.fb.array([])
     }) 
-
+    // clean this up 
     const storedUserId = sessionStorage.getItem('userId');
     this.sessionId = storedUserId;
     this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
@@ -65,7 +67,7 @@ export class RecipeSearchComponent implements OnInit{
     const searchValue = this.searchForm.get('searchBar')?.value;
     this.searchItem = searchValue
     const results = await this.recipeService.searchByMealName(searchValue)
-    console.log(results);
+    console.log(results);//Get Rid of This
     this.mealsFound = results;
     if(this.mealsFound.length > 0){
       this.resultsForm = this.fb.group({
@@ -73,11 +75,11 @@ export class RecipeSearchComponent implements OnInit{
       })
       for(let i = 0; i < this.mealsFound.length; i++){
         const meal = this.mealsFound[i];
-        console.log(meal);
-        console.log(meal.strMeal);
-        console.log(meal.strCategory);
-        console.log(meal.strMealThumb);
-        console.log(meal.strInstructions);
+        console.log(meal);//Get Rid of This
+        console.log(meal.strMeal);//Get Rid of This
+        console.log(meal.strCategory);//Get Rid of This
+        console.log(meal.strMealThumb);//Get Rid of This
+        console.log(meal.strInstructions);//Get Rid of This
         //build ingredients and quantities arrays
         let combinedIngredients: string[] = [];
         for (let j = 1; j <= 20; j++){
@@ -98,12 +100,12 @@ export class RecipeSearchComponent implements OnInit{
           mealInstructions : [meal.strInstructions],
           mealIngredients : [mealIngredientString],
         })
-        console.log(mealGroup);
+        console.log(mealGroup);//Get Rid of This
         this.mealList.push(mealGroup);
       }
       //console.log the results to see if they are correct
-      console.log(this.mealsFound);
-      console.log(this.resultsForm);
+      console.log(this.mealsFound);//Get Rid of This
+      console.log(this.resultsForm);//Get Rid of This
     } 
   }
   // method to save recipe when button is clicked
@@ -117,7 +119,7 @@ export class RecipeSearchComponent implements OnInit{
       isOnList: false,
       userID: this.currentUserId
     }
-    console.log(newRecipe)
+    console.log(newRecipe)//Get Rid of This
     this.recipeService.addRecipe(newRecipe)
   }
 }
