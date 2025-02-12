@@ -8,6 +8,8 @@ import { Ingredient } from '../recipe-saver-ingredients.model';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient }    from '@angular/common/http';
 import { HttpHeaders }   from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,8 @@ export class RecipeSaverService {
 
   private listOfUsers : Users[] = []
 
-  private theServerUrl : string = "https://localhost:7218/api/RecipeSaverApi"
+  private theServerUrl : string = environment.apiDomain
+  // private theServerUrl : string = "https://localhost:7218/api/RecipeSaverApi"
 
   private recipeServerURl : string = "https://www.themealdb.com/api/json/v1/1"
 
@@ -63,7 +66,7 @@ export class RecipeSaverService {
         'Content-Type' : 'application/json'
       });
       
-      return lastValueFrom(this.theServer.post(this.theServerUrl+"/users", newUser, {headers}))
+      return lastValueFrom(this.theServer.post(this.theServerUrl+"/users", newUser, {headers, withCredentials: true } ))
     }
 
     // Method to update Users

@@ -5,9 +5,8 @@
             <h1 class="text-xl font-bold">Shopping List</h1>
             <button (click)= "removeChecked()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Remove Checked</button>
             <div *ngFor="let aIngredient of userIngredients" class="flex items-center space-x-2 border-b pb-2">
-                <p class="text-sm"> Id: {{aIngredient.ingredientId}} </p>
-                <p class="text-sm"> Name: {{aIngredient.ingredientName}} </p>
-                <p class="text-sm"> Quantity: {{aIngredient.ingredientQuantity}} </p>
+                <p class="text-sm">{{aIngredient.ingredientName}} </p>
+                <p class="text-sm"> Qty: {{aIngredient.ingredientQuantity}} </p>
                 <input type="checkbox" [(ngModel)] = "aIngredient.toRemove">
             </div>
         </section>
