@@ -34,15 +34,16 @@ export class HomeComponent implements OnInit {
   async ngOnInit(){
     //check if user is logged in on init
     if (!this.currentUserId) {
-      alert('Please login to view your recipes');//get rid of alerts later on - they suck
+      alert('Please login to view your recipes');//Get Rid of This
       this.router.navigate(['/login']);
       return;
     }
     this.userList = await this.recipeService.getAllUsers()//probably not needed
     this.allRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId)
     this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId)
-    console.log(this.userIngredients)//Console.log - remove after dev
+    console.log(this.userIngredients)//Get Rid of This
 
+    //Get Rid of This
     // const storedUserId = sessionStorage.getItem('userId');
     // this.sessionId = storedUserId;
     // this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
@@ -58,7 +59,7 @@ async onRecipeSelected(){
   if (foundRecipe) {
     this.displayedRecipe = foundRecipe;
   }
-  console.log(this.displayedRecipe)
+  console.log(this.displayedRecipe)//Get Rid of This
 }
 
 //when user selects "remove Recipe" button, remove recipe from shopping list can call the editRecipe method from the service
@@ -71,7 +72,7 @@ async removeChecked(){
   //refresh list
   const userId = this.currentUserId;
   this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId);
-  console.log("removeChecked")
+  console.log("removeChecked")//Get Rid of This
 }
 
 //when user selects "add ingredients" button, add ingredeients to shopping list

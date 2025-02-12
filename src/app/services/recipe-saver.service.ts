@@ -16,11 +16,11 @@ import { environment } from '../../environments/environment';
 })
 export class RecipeSaverService {
 
-  private recipesOnList : Recipe[] = [] //"true" - on shopping list 
+  private recipesOnList : Recipe[] = [] //Get Rid of This
 
-  private recipesNotOnList: Recipe[] = [] //"false" - not on shopping list
+  private recipesNotOnList: Recipe[] = [] //Get Rid of This
 
-  private allUserRecipes : Recipe[] = [] // all user recipes regardless of list affilation
+  private allUserRecipes : Recipe[] = [] //Get Rid of This
 
   private listOfUsers : Users[] = []
 
@@ -50,7 +50,7 @@ export class RecipeSaverService {
       );
       return result;
      
-     
+     //Get Rid of This
       // const result : Users =
       // await lastValueFrom(this.theServer.get<Users>(this.theServerUrl+"/user?email=" + email))
       
@@ -142,7 +142,7 @@ export class RecipeSaverService {
     async getAllIngredientsByUserId(userId : number) : Promise<Ingredient[]> {
       const result : Ingredient[] =
       await lastValueFrom(this.theServer.get<Ingredient[]>(this.theServerUrl+"/ingredients/"+userId))
-      console.log((this.theServerUrl+"/ingredients/"+userId))
+      console.log((this.theServerUrl+"/ingredients/"+userId))//Get Rid of This
       return result
     }
 

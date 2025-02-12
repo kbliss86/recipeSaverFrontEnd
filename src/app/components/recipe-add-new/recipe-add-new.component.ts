@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Ingredient } from '../../recipe-saver-ingredients.model';
+import { FormsModule } from '@angular/forms';//Get Rid of This
+import { Ingredient } from '../../recipe-saver-ingredients.model';//Get Rid of This
 import { Recipe } from '../../recipe-saver-recipes.model';
 import { FormGroup, FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
@@ -9,6 +9,7 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
 @Component({
   selector: 'app-recipe-add-new',
   standalone: true,
+  //Get Rid of This
   // imports: [CommonModule, FormsModule, FormGroup, FormBuilder, FormArray, Validators],
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './recipe-add-new.component.html',
@@ -17,6 +18,7 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
 export class RecipeAddNewComponent implements OnInit {
 recipeForm!: FormGroup;
 
+//Get Rid of This
 //Add in hardcoded user ID for now, will be replaced with the current user's ID once we have login service set up, the variable will be equual to data stored in session storage
 currentUserId : number;
 
@@ -31,6 +33,7 @@ ngOnInit(): void {
       title: ['', Validators.required],
       category: ['', Validators.required],
       ingredientList: this.fb.array([]),
+      //Get Rid of This
       // measureList: this.fb.array([])
     });
 
@@ -61,10 +64,10 @@ onSubmit(): void{
     .map((ing: any) => `${ing.name} - ${ing.quantity}`)
     .join(', ');
 
-  console.log(formValue);
-  console.log(ingredientsString);
-  console.log(formValue.recipeName);
-  console.log(formValue.recipeCategory);
+  console.log(formValue);//Get Rid of This
+  console.log(ingredientsString);//Get Rid of This
+  console.log(formValue.recipeName);//Get Rid of This
+  console.log(formValue.recipeCategory);//Get Rid of This
 
   const newRecipe : Recipe = {
     recipeId: 0,
@@ -74,7 +77,7 @@ onSubmit(): void{
     isOnList: false,
     userID: this.currentUserId
   }
-
+  //Get Rid of This
   //add in the add recipe method from the service
   this.recipeService.addRecipe(newRecipe)
 

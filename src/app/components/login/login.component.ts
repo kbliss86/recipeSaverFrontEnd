@@ -27,28 +27,30 @@ export class LoginComponent implements OnInit{
         password: ['', [Validators.required, Validators.minLength(6)]],
       });
     }
+    //Get Rid of This
   // may need to create a "User Object" to store the user's email and password when the method is called -ignore for now
   async onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log('email', email);
-      console.log('password', password)
+      console.log('email', email);//Get Rid of This
+      console.log('password', password)//Get Rid of This
   
       try {
         // Fetch user from the database
         const userFromDb : Users = await this.recipeService.getUserByEmail(email);
-        console.log('Fetched userFromDb:', JSON.stringify(userFromDb, null, 2));
+        console.log('Fetched userFromDb:', JSON.stringify(userFromDb, null, 2));//Get Rid of This
         
         if (userFromDb) {
-          console.log('UserFromDb: ' + userFromDb.userEmail);
-          console.log('UserFromDb: ' + userFromDb.userId);
+          console.log('UserFromDb: ' + userFromDb.userEmail);//Get Rid of This
+          console.log('UserFromDb: ' + userFromDb.userId);//Get Rid of This
           const isPasswordMatch = await bcrypt.compare(password, userFromDb.userPassword);
-          console.log('isPasswordMatch:', isPasswordMatch);
+          console.log('isPasswordMatch:', isPasswordMatch);//Get Rid of This
           if (isPasswordMatch) {
-            alert('Login Successful!');//get rid of alerts later on - they suck
+            alert('Login Successful!');//Get Rid of This
             sessionStorage.setItem('userId', JSON.stringify(userFromDb.userId));
+            //Get Rid of This
             // sessionStorage.setItem("userId", JSON.stringify(userFromDb.userID));
-            console.log('Stored userId in session:', sessionStorage.getItem("userId"));
+            console.log('Stored userId in session:', sessionStorage.getItem("userId"));//Get Rid of This
             this.router.navigate(['/home']);
           } else {
             alert('Invalid email or password.');
