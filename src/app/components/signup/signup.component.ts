@@ -54,8 +54,6 @@ async onSubmit() {
     }
 
     const response = await this.recipieService.addUser(newUser);
-    console.log('User sign-up successfully:', response);//Get Rid of This
-    alert('Sign-up Successfull!');//Get Rid of This
     this.router.navigate(['/login']);
   }
   catch (error) {
