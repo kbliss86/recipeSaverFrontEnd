@@ -10,10 +10,8 @@
                 <input type="checkbox" [(ngModel)] = "aIngredient.toRemove">
             </div>
         </section>
-        <!-- recipe select section -->
 
-        <!-- Get Rid of This -->
-        <!-- <button (click)="addIngredients(displayedRecipe.ingredientList)">Add Recipe</button> -->
+        <!-- recipe select section -->
         <section class="w-1/2 border rounded-lg p-4 shadow space-y-4">
             <h1 class="text-xl font-bold">Recipe Select</h1>
             <button (click)="addIngredients()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Add Recipe</button>
@@ -24,13 +22,11 @@
                     </select>
                     <div class="h-4"></div>
                 </div>
+                <!-- Recipe Display  -->
                 <div *ngIf="displayedRecipe" class="bg-gray-100 p-4 rounded shadow-md">
                     <h2 class="text-xl font-bold">{{displayedRecipe.recipeName}}</h2>
                     <div class="h-4"></div>
                     <label class="text-lg font-semibold">Category: {{displayedRecipe.recipeCategory}}</label>
-                    <!-- //Get Rid of This -->
-                    <!-- <p>{{displayedRecipe.recipeCategory}}</p> -->
-                    <!-- spacer to seperate the recipe name and the ingredients -->
                     <div class="h-4"></div>
                     <label class="text-lg font-semibold">Ingredients:</label>
                     <p>{{displayedRecipe.ingredientList}}</p>

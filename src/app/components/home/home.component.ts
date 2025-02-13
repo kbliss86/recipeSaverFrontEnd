@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   allRecipes : Recipe[] = []
   currentUserId : number;
 
-  // selectedRecipe : Recipe | null = null
   constructor (private recipeService : RecipeSaverService, private router: Router ){
     const storedUserId = sessionStorage.getItem('userId')
     this.currentUserId = storedUserId && !isNaN(Number(storedUserId)) ? parseInt(storedUserId, 10) : 0;
@@ -34,22 +33,12 @@ export class HomeComponent implements OnInit {
   async ngOnInit(){
     //check if user is logged in on init
     if (!this.currentUserId) {
-      alert('Please login to view your recipes');//Get Rid of This
       this.router.navigate(['/login']);
       return;
     }
     this.userList = await this.recipeService.getAllUsers()//probably not needed
     this.allRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId)
     this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId)
-    console.log(this.userIngredients)//Get Rid of This
-
-    //Get Rid of This
-    // const storedUserId = sessionStorage.getItem('userId');
-    // this.sessionId = storedUserId;
-    // this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId))
-    // ? parseInt(this.sessionId, 10)
-    // : 2;
-
   }
 
 //when user selects recipe from list, populate card with recipe details
@@ -59,7 +48,6 @@ async onRecipeSelected(){
   if (foundRecipe) {
     this.displayedRecipe = foundRecipe;
   }
-  console.log(this.displayedRecipe)//Get Rid of This
 }
 
 //when user selects "remove Recipe" button, remove recipe from shopping list can call the editRecipe method from the service
@@ -72,7 +60,6 @@ async removeChecked(){
   //refresh list
   const userId = this.currentUserId;
   this.userIngredients = await this.recipeService.getAllIngredientsByUserId(this.currentUserId);
-  console.log("removeChecked")//Get Rid of This
 }
 
 //when user selects "add ingredients" button, add ingredeients to shopping list

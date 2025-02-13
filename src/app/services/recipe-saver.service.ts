@@ -16,18 +16,9 @@ import { environment } from '../../environments/environment';
 })
 export class RecipeSaverService {
 
-  private recipesOnList : Recipe[] = [] //Get Rid of This
+  private theServerUrl : string = environment.apiDomain //variable to provide URL for our api based on the run enivronment
 
-  private recipesNotOnList: Recipe[] = [] //Get Rid of This
-
-  private allUserRecipes : Recipe[] = [] //Get Rid of This
-
-  private listOfUsers : Users[] = []
-
-  private theServerUrl : string = environment.apiDomain
-  // private theServerUrl : string = "https://localhost:7218/api/RecipeSaverApi"
-
-  private recipeServerURl : string = "https://www.themealdb.com/api/json/v1/1"
+  private recipeServerURl : string = "https://www.themealdb.com/api/json/v1/1" //external api url
 
   constructor(private theServer:HttpClient) {}
   // ========================
@@ -38,7 +29,6 @@ export class RecipeSaverService {
     async getAllUsers() : Promise<Users[]> {
       const result : Users[] =
       await lastValueFrom(this.theServer.get<Users[]>(this.theServerUrl+"/users"))
-      this.listOfUsers
       return result
     }
 
@@ -49,15 +39,7 @@ export class RecipeSaverService {
         this.theServer.get<Users>(`${this.theServerUrl}/user?email=${encodedEmail}`)
       );
       return result;
-     
-     //Get Rid of This
-      // const result : Users =
-      // await lastValueFrom(this.theServer.get<Users>(this.theServerUrl+"/user?email=" + email))
-      
-      // return result
     }
-
-    //Need a mehtod to get a user by email and ID
 
     // Method to add User
     async addUser(newUser : Users){
@@ -90,7 +72,6 @@ export class RecipeSaverService {
     async getAllRecipesByUserId(userId : number) : Promise<Recipe[]> {
       const result : Recipe[] =
       await lastValueFrom(this.theServer.get<Recipe[]>(this.theServerUrl+"/recipes/"+userId))
-      this.allUserRecipes = result
       return result
     }
 
@@ -98,11 +79,6 @@ export class RecipeSaverService {
     async getAllRecipesByUserIdAndList(userId : number, onList? : boolean) : Promise<Recipe[]> {
       const result : Recipe[] =
       await lastValueFrom(this.theServer.get<Recipe[]>(this.theServerUrl+"/recipes/"+userId+"?isOnlist="+onList))
-      if(onList){
-        this.recipesOnList = result
-      } else {
-        this.recipesNotOnList = result
-      }
       return result
     }
 
@@ -142,7 +118,6 @@ export class RecipeSaverService {
     async getAllIngredientsByUserId(userId : number) : Promise<Ingredient[]> {
       const result : Ingredient[] =
       await lastValueFrom(this.theServer.get<Ingredient[]>(this.theServerUrl+"/ingredients/"+userId))
-      console.log((this.theServerUrl+"/ingredients/"+userId))//Get Rid of This
       return result
     }
 

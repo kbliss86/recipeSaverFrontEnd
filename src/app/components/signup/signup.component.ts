@@ -57,7 +57,6 @@ async onSubmit() {
     this.router.navigate(['/login']);
   }
   catch (error) {
-    console.error('Error during Sign-up', error);//Get Rid of This
     alert('Sign-up Failed');
   }
   

@@ -1,8 +1,9 @@
-<!-- clean up and add comments explaining what we are doing and the layout  -->
+<!-- Sign-Up form using Angular Reactive Forms. This form collectes user details and validates input fields. -->
 <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
   <div class="max-w-md w-full bg-white p-6 rounded shadow">
       <h2 class="text-2xl font-bold mb-6">Sign Up</h2>
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-4">
+         <!-- Name Field -->
         <div class="form-group">
           <label for="userName" class="block font-semibold mb-1">Name</label>
           <input
@@ -12,6 +13,7 @@
             placeholder="Enter your name"
             class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
+         <!-- Error message -->
           <small
             *ngIf="signupForm.get('userName')?.invalid && signupForm.get('userName')?.touched" class="block text-red-600 text-sm mt-1"
           >

@@ -24,13 +24,11 @@ export class RecipeManipulationComponent {
 //method for button click "Add New Recipe" - Not Needed
   addNewRecipe(){
     this.showCard = 'add';
-    console.log("Add New Recipe Button Clicked")//Get Rid of This
   }
 
   //method for button click "Edit Recipe" - Not Needed
   editRecipe(){
     this.showCard = 'edit';
-    console.log("Edit Recipe Button Clicked")//Get Rid of This
   }
 
 }
