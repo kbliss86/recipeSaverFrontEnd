@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';//Get Rid of This
-import { Ingredient } from '../../recipe-saver-ingredients.model';//Get Rid of This
 import { Recipe } from '../../recipe-saver-recipes.model';
 import { FormGroup, FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RecipeSaverService } from '../../services/recipe-saver.service';
@@ -14,13 +12,9 @@ import { RecipeSaverService } from '../../services/recipe-saver.service';
   styleUrl: './recipe-edit.component.css'
 })
 export class RecipeEditComponent implements OnInit {
-  //Get Rid of This
-  sessionId = sessionStorage.getItem('userId')//get userID from session storage - not needed
   //current user ID
   currentUserId : number;
-
   userRecipes: Recipe[] = [];// Pull directly from the recipe table by user ID
-
   editRecipeForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private recipeService : RecipeSaverService) {
@@ -36,16 +30,9 @@ export class RecipeEditComponent implements OnInit {
       category: ['', Validators.required],
       ingredientList: this.fb.array([]),
     });
-    //Get Rid of This
-    // const storedUserId = sessionStorage.getItem('userId');
-    // this.sessionId = storedUserId;
-    // this.currentUserId = this.sessionId && !isNaN(Number(this.sessionId)) ? parseInt(this.sessionId, 10) : 0;
 
   //fethcing the user's recipes - for dropdown
     this.userRecipes = await this.recipeService.getAllRecipesByUserId(this.currentUserId);
-
-
-    
   }
 
   //helper getter for easier access in the tamplate - this is so we dont have to retype this.recipeForm.get('ingredientList') as FormArray; in the template
@@ -68,11 +55,8 @@ export class RecipeEditComponent implements OnInit {
 
   //on recipe select populate the form with the recipe details
   async onRecipeSelected(){
-    console.log("CLICKED");//Get Rid of This
     const selectedId = this.editRecipeForm.get('selectedRecipe')?.value;
-    console.log(selectedId);//Get Rid of This
     const selectedRecipe = this.userRecipes.find(recipe => recipe.recipeId == selectedId);
-    console.log(selectedRecipe);//Get Rid of This
     if (selectedRecipe) {
       this.editRecipeForm.patchValue({
         recipeId: selectedRecipe.recipeId,

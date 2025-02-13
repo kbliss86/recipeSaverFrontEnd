@@ -1,4 +1,4 @@
-<!-- Add in Comments On this Page to explain what we did and how it works and is laid out -->
+<!-- This is a simple login form using Angular's reactive forms. It includes email and password fields with validation and two buttons for login and signup actions. -->
 <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
   <div class="max-w-md w-full bg-white p-6 rounded shadow">
     <h2 class="text-2xl font-bold mb-6">Login</h2>
@@ -13,11 +13,12 @@
           placeholder="Enter your email"
           class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
+       <!-- Error Message for invalid email -->
         <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="block text-red-600 text-sm mt-1">
           Please enter a valid email.
         </small>
       </div>
-  
+      <!-- Password field-->
       <div class="form-group">
         <label for="password" class="block font-semibold mb-1">Password</label>
         <input
@@ -27,10 +28,12 @@
           placeholder="Enter your password"
           class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
+       <!-- Error Message for invalid password -->
         <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="block text-red-600 text-sm mt-1">
           Password must be at least 6 characters.
         </small>
       </div>
+       <!-- Login button (disabled when the form is invalid) and Sign up button -->
       <div class="flex space-x-2">
         <button type="submit" [disabled]="loginForm.invalid" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colorsdisabled:bg-gray-400 disabled:cursor-not-allowed">Login</button>
         <button (click)="onSignup()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Sign Up</button>

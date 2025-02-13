@@ -1,13 +1,14 @@
-<!-- Clean up and add in comments explaining layout and what we are doing  -->
 <section class="p-8 flex flex-col items-center">
     <div class="border rounded-lg p-6 shadow w-full max-w-4xl">
     <div class="mb-4 flex flex-col items-center">
         <h1 class="text-2x1 font-bold mb-4">Add/Edit a Recipe</h1>
+        <!-- buttons to choose add or edit  -->
         <div class="flex gap-4">
-        <button (click)="showCard='add'" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Add Recipe</button>
-        <button (click)="showCard='edit'" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Edit Recipe</button>
+            <button (click)="showCard='add'" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Add Recipe</button>
+            <button (click)="showCard='edit'" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">Edit Recipe</button>
         </div>
     </div>
+    <!-- ngIfs to show the add or edit card  -->
     <div *ngIf='showCard=="add"' class="bg-gray-100 p-4 rounded shadow-md">
         <app-recipe-add-new></app-recipe-add-new>
     </div>
