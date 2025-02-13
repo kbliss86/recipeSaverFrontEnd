@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit{
           const isPasswordMatch = await bcrypt.compare(password, userFromDb.userPassword);
           console.log('isPasswordMatch:', isPasswordMatch);//Get Rid of This
           if (isPasswordMatch) {
-            alert('Login Successful!');//Get Rid of This
+            
             sessionStorage.setItem('userId', JSON.stringify(userFromDb.userId));
             //Get Rid of This
             // sessionStorage.setItem("userId", JSON.stringify(userFromDb.userID));
