@@ -1,9 +1,36 @@
 {
     "routes": [
-      {
-        "route": "/*",
-        "serve": "/index.html"
-      }
+        {
+            "route": "/home",          
+            "serve": "/index.html",
+            "statusCode": 200
+          },
+          {
+            "route": "/signup",        
+            "serve": "/index.html",
+            "statusCode": 200
+          },
+          {
+            "route": "/login",         
+            "serve": "/index.html",
+            "statusCode": 200
+          },
+          {
+            "route": "/search",        
+            "serve": "/index.html",
+            "statusCode": 200
+          },
+          {
+            "route": "/modify",         
+            "serve": "/index.html",
+            "statusCode": 200
+          },
+          {
+            "route": "/*",              
+            "serve": "/index.html",
+            "statusCode": 200
+          }
     ]
-  }
+}
+
   
